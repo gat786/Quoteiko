@@ -7,9 +7,17 @@
     tools:context=".MainActivity">
 
     <fragment
+        android:id="@+id/fragment"
+        android:name="in.webxstudio.android.quoteiko.QuoteImageSample"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <fragment
         android:id="@+id/GetQuoteDetailsFrag"
         android:name="in.webxstudio.android.quoteiko.GetQuoteDetailsFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/fragment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
