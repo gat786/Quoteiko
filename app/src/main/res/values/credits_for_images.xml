@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="adrien_olichon">Adrian Olichon</string>
+    <string name="haydn_golden">Haydn Golden</string>
+    <string name="huyen_nguyen">Huyen Nguyen</string>
+    <string name="jeremy_weber">Jeremy Weber</string>
+    <string name="jonathan_daniels">Jonathan Daniels</string>
+    <string name="jordan_whitt">Jordan Whitt</string>
+    <string name="joshua_chun">Joshua Chun</string>
+    <string name="matthew_pablico">Matthew Pablico</string>
+    <string name="pablo_heimplatz">Pablo Heimplatz</string>
+    <string name="s_b_vonlanthen">S and B Vonlanthen</string>
+    <string name="will_suddreth">Will Suddreth</string>
+    <string name="adrien_olichon_link">https://unsplash.com/@adrienolichon</string>
+    <string name="haydn_golden_link">https://unsplash.com/@goldensson</string>
+    <string name="huyen_nguyen_link">https://unsplash.com/@huyennguyen</string>
+    <string name="jeremy_weber_link">https://unsplash.com/@doubleweber</string>
+    <string name="jonathan_daniels_link">https://unsplash.com/@dear_jondog</string>
+    <string name="jordan_whitt_link">https://unsplash.com/@jwwhitt</string>
+    <string name="joshua_chun_link">https://unsplash.com/@joshuachun</string>
+    <string name="matthew_pablico_link">https://unsplash.com/@doubleweber</string>
+    <string name="pablo_heimplatz_link">https://unsplash.com/@pabloheimplatz</string>
+    <string name="s_b_vonlanthen_link">https://unsplash.com/@blavon</string>
+    <string name="will_suddreth_link">https://unsplash.com/@willsudds</string>
+</resources>
