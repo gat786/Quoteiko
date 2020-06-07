@@ -25,6 +25,7 @@
 
 
             <HorizontalScrollView
+                android:visibility="gone"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -37,18 +38,23 @@
                     android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/change_quote_card"
+                        android:onClick="ChangeQuote"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_margin="16dp">
 
                         <ImageView
+                            android:tint="@android:color/black"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_feather"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
                         <TextView
-                            android:layout_marginTop="8pt"
+                            android:layout_marginTop="16pt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
@@ -56,18 +62,23 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/change_fontstyle_card"
+                        android:onClick="ChangeFontStyle"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_margin="16dp">
 
                         <ImageView
+                            android:tint="@android:color/black"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_font"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
                         <TextView
-                            android:layout_marginTop="8pt"
+                            android:layout_marginTop="16pt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
@@ -77,18 +88,23 @@
 
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/change_image_card"
+                        android:onClick="ChangeImage"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_margin="16dp">
 
                         <ImageView
+                            android:tint="@android:color/black"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_image"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
                         <TextView
-                            android:layout_marginTop="8pt"
+                            android:layout_marginTop="16pt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
@@ -98,6 +114,29 @@
                 </LinearLayout>
 
             </HorizontalScrollView>
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:id="@+id/change_quote_layout"
+                app:layout_constraintTop_toBottomOf="@id/sample_image_quote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <fragment
+                    android:id="@+id/GetQuoteDetailsFrag"
+                    android:name="in.webxstudio.android.quoteiko.GetQuoteDetailsFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/change_fontstyle_layout"
+                app:layout_constraintTop_toBottomOf="@id/sample_image_quote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </LinearLayout>
 
             <!--            <fragment-->
 <!--                android:id="@+id/GetQuoteDetailsFrag"-->
