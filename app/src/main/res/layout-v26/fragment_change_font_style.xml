@@ -163,14 +163,6 @@
             </RelativeLayout>
         </LinearLayout>
 
-
-        <SeekBar
-            android:min="16"
-            android:layout_margin="8dp"
-            android:id="@+id/seekBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/buttons_layout"
             android:layout_width="match_parent"

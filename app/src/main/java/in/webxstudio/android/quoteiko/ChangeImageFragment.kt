@@ -37,6 +37,10 @@ class ChangeImageFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_change_image, container, false)
     }
 
+    interface onImageChanged{
+        fun onImageChanged(imagePath:String){}
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of

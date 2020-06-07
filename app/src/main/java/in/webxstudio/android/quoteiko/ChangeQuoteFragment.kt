@@ -1,12 +1,10 @@
 package `in`.webxstudio.android.quoteiko
 
-import android.media.Image
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.palette.graphics.Palette
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -16,7 +14,7 @@ private const val QUOTE_AUTHOR_NAME = "quoteAuthorName"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [GetQuoteDetailsFragment.newInstance] factory method to
+ * Use the [ChangeQuoteFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
 
@@ -29,7 +27,7 @@ private const val defaultImagePath = ""
 private const val defaultQuoteAuthor = "Mr, John Doe"
 
 
-class GetQuoteDetailsFragment : Fragment() {
+class ChangeQuoteFragment : Fragment() {
     lateinit var quoteImagePath: String
     lateinit var quoteString: String
     lateinit var quoteAuthorName: String
@@ -41,6 +39,10 @@ class GetQuoteDetailsFragment : Fragment() {
             quoteAuthorName = it.getString(QUOTE_AUTHOR_NAME).toString()
             quoteImagePath = it.getString(QUOTE_IMAGE_PATH).toString()
         }
+    }
+
+    interface onQuoteDetailsFilled{
+        fun onQuoteDetailsReceived(quoteString:String,quoteAuthorName:String){}
     }
 
     enum class TextDirection{
