@@ -1,5 +1,6 @@
-package `in`.webxstudio.android.quoteiko
+package `in`.webxstudio.android.quoteiko.ChangeStyleFragments
 
+import `in`.webxstudio.android.quoteiko.R
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater

@@ -1,5 +1,6 @@
-package `in`.webxstudio.android.quoteiko
+package `in`.webxstudio.android.quoteiko.ChangeStyleFragments
 
+import `in`.webxstudio.android.quoteiko.R
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -53,7 +54,8 @@ class ChangeImageFragment : Fragment() {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            ChangeImageFragment().apply {
+            ChangeImageFragment()
+                .apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

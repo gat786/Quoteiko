@@ -30,47 +30,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <RelativeLayout
-                android:visibility="gone"
-                android:id="@+id/change_quote_layout"
-                app:layout_constraintTop_toBottomOf="@id/sample_image_quote"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <fragment
-                    android:id="@+id/GetQuoteDetailsFrag"
-                    android:name="in.webxstudio.android.quoteiko.ChangeQuoteFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:visibility="gone"
-                android:id="@+id/change_font_layout"
-                app:layout_constraintTop_toBottomOf="@id/sample_image_quote"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <fragment
-                    android:id="@+id/ChangeFontStyleFragment"
-                    android:name="in.webxstudio.android.quoteiko.ChangeFontStyleFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:visibility="gone"
-                android:id="@+id/change_image_layout"
-                app:layout_constraintTop_toBottomOf="@id/sample_image_quote"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <fragment
-                    android:id="@+id/change_image_fragment"
-                    android:name="in.webxstudio.android.quoteiko.ChangeImageFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
-            </RelativeLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

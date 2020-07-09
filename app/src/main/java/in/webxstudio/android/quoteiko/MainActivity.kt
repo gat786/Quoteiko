@@ -1,5 +1,8 @@
 package `in`.webxstudio.android.quoteiko
 
+import `in`.webxstudio.android.quoteiko.ChangeStyleFragments.ChangeFontStyleFragment
+import `in`.webxstudio.android.quoteiko.ChangeStyleFragments.ChangeImageFragment
+import `in`.webxstudio.android.quoteiko.ChangeStyleFragments.ChangeQuoteFragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -14,9 +17,12 @@ class MainActivity : AppCompatActivity(),
     private val TAG = "MainActivity"
     val manager = supportFragmentManager
     val optionsHolderFragment = OptionsHolderFragment()
-    val changeQuoteFragment = ChangeQuoteFragment()
-    val changeFontStyleFragment = ChangeFontStyleFragment()
-    val changeImageFragment = ChangeImageFragment()
+    val changeQuoteFragment =
+        ChangeQuoteFragment()
+    val changeFontStyleFragment =
+        ChangeFontStyleFragment()
+    val changeImageFragment =
+        ChangeImageFragment()
 
     enum class Options{
         CHANGE_QUOTE,
@@ -31,7 +37,7 @@ class MainActivity : AppCompatActivity(),
                 showChangeImageFragment()
             }
             Options.CHANGE_QUOTE->{
-                showQuoteFragment()
+                showChangeQuoteFragment()
             }
             Options.CHANGE_STYLE->{
                 showChangeFontStyleFragment()
@@ -53,6 +59,10 @@ class MainActivity : AppCompatActivity(),
         super.onImageChanged(imagePath)
     }
 
+    override fun onBackPressed() {
+        manager.popBackStack()
+    }
+
     override fun onQuoteDetailsReceived(quoteString: String, quoteAuthorName: String) {
 
         super.onQuoteDetailsReceived(quoteString, quoteAuthorName)
@@ -69,24 +79,28 @@ class MainActivity : AppCompatActivity(),
     fun showChangeOptionsFragment(){
         val transactionManager = manager.beginTransaction()
         transactionManager.replace(R.id.root_fragment_holder,optionsHolderFragment)
+            .addToBackStack(OPTIONS_FRAGMENT)
         transactionManager.commit()
     }
 
-    fun showQuoteFragment(){
+    fun showChangeQuoteFragment(){
         val transactionManager = manager.beginTransaction()
         transactionManager.replace(R.id.root_fragment_holder,changeQuoteFragment)
+            .addToBackStack(CHANGE_QUOTE_FRAGMENT)
         transactionManager.commit()
     }
 
     fun showChangeFontStyleFragment(){
         val transactionManager = manager.beginTransaction()
         transactionManager.replace(R.id.root_fragment_holder,changeFontStyleFragment)
+            .addToBackStack(CHANGE_FONT_STYLE_FRAGMENT)
         transactionManager.commit()
     }
 
     fun showChangeImageFragment(){
         val transactionManager = manager.beginTransaction()
         transactionManager.replace(R.id.root_fragment_holder,changeImageFragment)
+            .addToBackStack(CHANGE_IMAGE_FRAGMENT)
         transactionManager.commit()
     }
 
