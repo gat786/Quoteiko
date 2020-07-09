@@ -3,8 +3,11 @@ package `in`.webxstudio.android.quoteiko
 import `in`.webxstudio.android.quoteiko.ChangeStyleFragments.ChangeFontStyleFragment
 import `in`.webxstudio.android.quoteiko.ChangeStyleFragments.ChangeImageFragment
 import `in`.webxstudio.android.quoteiko.ChangeStyleFragments.ChangeQuoteFragment
+import android.content.Context
+import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings.Global.getString
 import android.util.Log
 
 class MainActivity : AppCompatActivity(),
@@ -72,6 +75,7 @@ class MainActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //val imageProperties = ImageProperties()
         // set the normal options on the main activity
         showChangeOptionsFragment()
     }
@@ -104,7 +108,12 @@ class MainActivity : AppCompatActivity(),
         transactionManager.commit()
     }
 
-
-
+    data class ImageProperties(
+        var imagePath: Int = R.drawable.adrien_olichon,
+        var quoteString: String,
+        var authorString: String,
+        var alignmentText: String,
+        var textSize: Int,
+        var textType: String)
 
 }
