@@ -31,3 +31,15 @@ jobs:
       with:
         args: "./gradlew assembleRelease"
         
+    - name: Sign Android release
+      uses: r0adkll/sign-android-release@v1
+      with:
+        # The directory to find your release to sign
+        releaseDirectory: "./app/build/outputs/apk/release"
+        # The key used to sign your release in base64 encoded format
+        signingKeyBase64: ${{ secrets.BASE_64_SIGNING_KEY }}
+        # The key alias
+        alias: ${{ secrets.ALIAS }}
+        # The password to the keystore
+        keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+        
