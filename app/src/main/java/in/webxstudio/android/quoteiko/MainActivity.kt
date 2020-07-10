@@ -3,17 +3,15 @@ package `in`.webxstudio.android.quoteiko
 import `in`.webxstudio.android.quoteiko.ChangeStyleFragments.ChangeFontStyleFragment
 import `in`.webxstudio.android.quoteiko.ChangeStyleFragments.ChangeImageFragment
 import `in`.webxstudio.android.quoteiko.ChangeStyleFragments.ChangeQuoteFragment
-import android.content.Context
-import android.content.res.Resources
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Color
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Settings.Global.getString
 import android.util.Log
-import androidx.core.graphics.drawable.toBitmap
+import android.view.Gravity
+import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_get_quote_details.view.*
 
 class MainActivity : AppCompatActivity(),
         ChangeQuoteFragment.onQuoteDetailsFilled,
@@ -31,6 +29,13 @@ class MainActivity : AppCompatActivity(),
         ChangeFontStyleFragment()
     private val changeImageFragment =
         ChangeImageFragment()
+
+    private lateinit var defaultImageBitmap : Bitmap
+    private lateinit var defaultQuoteString :String
+    private lateinit var defaultAuthorName :String
+
+
+    lateinit var props :ImageProps
 
     enum class Options{
         CHANGE_QUOTE,
@@ -69,6 +74,31 @@ class MainActivity : AppCompatActivity(),
         QuoteViewImage.setImageBitmap(props.imageBitmap)
         quote_field.text = props.imageQuote
         quote_author_field.text = props.quoteAuthor
+        quote_field.textSize = props.textSize.toFloat()
+        quote_field.setTextColor(props.textColor)
+        when(props.textAlignment){
+            Alignments.LEFT ->{
+                quote_field.gravity = Gravity.START
+            }
+            Alignments.CENTER ->{
+                quote_field.gravity = Gravity.CENTER
+            }
+            Alignments.RIGHT -> {
+                quote_field.gravity = Gravity.END
+            }
+        }
+        when(props.textStyle){
+            TextStyle.NORMAL->{
+                quote_field.setTypeface(quote_field.typeface,Typeface.NORMAL)
+            }
+            TextStyle.ITALIC->{
+                quote_field.setTypeface(quote_field.typeface,Typeface.ITALIC)
+            }
+            TextStyle.BOLD ->{
+                quote_field.setTypeface(quote_field.typeface,Typeface.BOLD)
+            }
+        }
+
     }
 
     override fun onFontStyleChanged(
@@ -83,6 +113,7 @@ class MainActivity : AppCompatActivity(),
     override fun onImageChanged(imagePath: String) {
         //sample_image_quote.QuoteViewImage.setImageBitmap()
         println("Method overridden successfully")
+
         super.onImageChanged(imagePath)
     }
 
@@ -99,16 +130,18 @@ class MainActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //val imageProperties = ImageProperties()
-        // set the normal options on the main activity
-        showChangeOptionsFragment()
+        defaultImageBitmap = BitmapFactory.decodeResource(resources,R.drawable.jeremy_weber)
+        defaultQuoteString =  resources.getString(R.string.quotes_string)
+        defaultAuthorName = resources.getString(R.string.default_quotes_author)
 
-        val imageBitmap = BitmapFactory.decodeResource(resources,R.drawable.jeremy_weber)
-        val props = ImageProps(
-            imageBitmap = imageBitmap,
-            imageQuote = resources.getString(R.string.quotes_string),
-            quoteAuthor = resources.getString(R.string.default_quotes_author)
+        props = ImageProps(
+            imageBitmap = defaultImageBitmap,
+            imageQuote = defaultQuoteString,
+            quoteAuthor = defaultAuthorName,
+            textStyle = TextStyle.ITALIC
         )
+
+        showChangeOptionsFragment()
         setImageProperties(props)
     }
 

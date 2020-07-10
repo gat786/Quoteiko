@@ -4,7 +4,7 @@
     <string name="enter_the_author_of_quote">Enter the Author of Quote</string>
     <string name="create_quote_banner">Create Quote Banner</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="quotes_string">Hello there babes my name is TextView and i am used to write quotes</string>
+    <string name="quotes_string">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </string>
     <string name="default_quotes_author">Your Cute Name</string>
     <string name="change_quote">Change Quote</string>
     <string name="change_fontstyle">Change FontStyle</string>
