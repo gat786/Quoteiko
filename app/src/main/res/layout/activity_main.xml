@@ -16,16 +16,58 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <fragment
-                android:id="@+id/sample_image_quote"
-                android:name="in.webxstudio.android.quoteiko.QuoteImageSample"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent" />
 
+            <FrameLayout
+                android:id="@+id/quote_image_holder"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="1:1">
+                <ImageView
+                    android:id="@+id/QuoteViewImage"
+                    android:src="@drawable/adrien_olichon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/quote_text_and_context"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        app:layout_constraintBottom_toBottomOf="@id/quote_text_and_context"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_margin="16dp"
+                            android:textSize="48sp"
+                            android:text="@string/quotes_string"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:layout_marginTop="16dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginBottom="8dp"
+                            android:text="Author name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:layout_marginTop="16dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginBottom="8dp"
+                            android:text="Quote Context"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
 
             <RelativeLayout
-                app:layout_constraintTop_toBottomOf="@id/sample_image_quote"
+                app:layout_constraintTop_toBottomOf="@id/quote_image_holder"
                 android:id="@+id/root_fragment_holder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

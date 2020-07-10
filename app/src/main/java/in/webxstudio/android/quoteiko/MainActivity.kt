@@ -108,12 +108,6 @@ class MainActivity : AppCompatActivity(),
         transactionManager.commit()
     }
 
-    data class ImageProperties(
-        var imagePath: Int = R.drawable.adrien_olichon,
-        var quoteString: String,
-        var authorString: String,
-        var alignmentText: String,
-        var textSize: Int,
-        var textType: String)
+
 
 }
