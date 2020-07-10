@@ -5,6 +5,7 @@ import `in`.webxstudio.android.quoteiko.ChangeStyleFragments.ChangeImageFragment
 import `in`.webxstudio.android.quoteiko.ChangeStyleFragments.ChangeQuoteFragment
 import android.content.Context
 import android.content.res.Resources
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings.Global.getString
@@ -18,19 +19,38 @@ class MainActivity : AppCompatActivity(),
 {
 
     private val TAG = "MainActivity"
-    val manager = supportFragmentManager
-    val optionsHolderFragment = OptionsHolderFragment()
-    val changeQuoteFragment =
+    private val manager = supportFragmentManager
+    private val optionsHolderFragment = OptionsHolderFragment()
+    private val changeQuoteFragment =
         ChangeQuoteFragment()
-    val changeFontStyleFragment =
+    private val changeFontStyleFragment =
         ChangeFontStyleFragment()
-    val changeImageFragment =
+    private val changeImageFragment =
         ChangeImageFragment()
+
+    lateinit var defaultQuote :String
+    lateinit var defaultAuthor:String
+    var defaultSize: Int = 18
+    var defaultColor = "#000000"
+    var textAlignment = Alignments.LEFT
+    var textStyle = TextStyle.NORMAL
 
     enum class Options{
         CHANGE_QUOTE,
         CHANGE_STYLE,
         CHANGE_IMAGE
+    }
+
+    enum class TextStyle{
+        BOLD,
+        ITALIC,
+        NORMAL
+    }
+
+    enum class Alignments{
+        LEFT,
+        RIGHT,
+        CENTER
     }
 
     override fun onOptionSelected(option: Options) {
@@ -106,8 +126,18 @@ class MainActivity : AppCompatActivity(),
         transactionManager.replace(R.id.root_fragment_holder,changeImageFragment)
             .addToBackStack(CHANGE_IMAGE_FRAGMENT)
         transactionManager.commit()
+
     }
 
+    data class ImageProps(
+        var imagePath: String,
+        var imageQuote:String,
+        var quoteAuthor:String,
+        var textSize:Int,
+        var textColor: Color
+    )
 
+    companion object {
+    }
 
 }
