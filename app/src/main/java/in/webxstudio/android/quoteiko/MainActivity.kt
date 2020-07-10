@@ -5,11 +5,15 @@ import `in`.webxstudio.android.quoteiko.ChangeStyleFragments.ChangeImageFragment
 import `in`.webxstudio.android.quoteiko.ChangeStyleFragments.ChangeQuoteFragment
 import android.content.Context
 import android.content.res.Resources
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings.Global.getString
 import android.util.Log
+import androidx.core.graphics.drawable.toBitmap
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_get_quote_details.view.*
 
 class MainActivity : AppCompatActivity(),
         ChangeQuoteFragment.onQuoteDetailsFilled,
@@ -27,13 +31,6 @@ class MainActivity : AppCompatActivity(),
         ChangeFontStyleFragment()
     private val changeImageFragment =
         ChangeImageFragment()
-
-    lateinit var defaultQuote :String
-    lateinit var defaultAuthor:String
-    var defaultSize: Int = 18
-    var defaultColor = "#000000"
-    var textAlignment = Alignments.LEFT
-    var textStyle = TextStyle.NORMAL
 
     enum class Options{
         CHANGE_QUOTE,
@@ -55,17 +52,23 @@ class MainActivity : AppCompatActivity(),
 
     override fun onOptionSelected(option: Options) {
         Log.d(TAG,"One option selected")
-        when(option){
-            Options.CHANGE_IMAGE->{
+        when (option) {
+            Options.CHANGE_IMAGE -> {
                 showChangeImageFragment()
             }
-            Options.CHANGE_QUOTE->{
+            Options.CHANGE_QUOTE -> {
                 showChangeQuoteFragment()
             }
-            Options.CHANGE_STYLE->{
+            Options.CHANGE_STYLE -> {
                 showChangeFontStyleFragment()
             }
         }
+    }
+
+    fun setImageProperties(props: ImageProps){
+        QuoteViewImage.setImageBitmap(props.imageBitmap)
+        quote_field.text = props.imageQuote
+        quote_author_field.text = props.quoteAuthor
     }
 
     override fun onFontStyleChanged(
@@ -73,12 +76,13 @@ class MainActivity : AppCompatActivity(),
         fontDirection: ChangeQuoteFragment.TextDirection?,
         fontColor: String
     ) {
-
+        println("Method overridden successfully")
         super.onFontStyleChanged(fontFormat, fontDirection, fontColor)
     }
 
     override fun onImageChanged(imagePath: String) {
         //sample_image_quote.QuoteViewImage.setImageBitmap()
+        println("Method overridden successfully")
         super.onImageChanged(imagePath)
     }
 
@@ -98,6 +102,14 @@ class MainActivity : AppCompatActivity(),
         //val imageProperties = ImageProperties()
         // set the normal options on the main activity
         showChangeOptionsFragment()
+
+        val imageBitmap = BitmapFactory.decodeResource(resources,R.drawable.jeremy_weber)
+        val props = ImageProps(
+            imageBitmap = imageBitmap,
+            imageQuote = resources.getString(R.string.quotes_string),
+            quoteAuthor = resources.getString(R.string.default_quotes_author)
+        )
+        setImageProperties(props)
     }
 
     fun showChangeOptionsFragment(){
@@ -127,17 +139,6 @@ class MainActivity : AppCompatActivity(),
             .addToBackStack(CHANGE_IMAGE_FRAGMENT)
         transactionManager.commit()
 
-    }
-
-    data class ImageProps(
-        var imagePath: String,
-        var imageQuote:String,
-        var quoteAuthor:String,
-        var textSize:Int,
-        var textColor: Color
-    )
-
-    companion object {
     }
 
 }
