@@ -55,6 +55,7 @@ class OptionsHolderFragment : Fragment() {
         return rootView
     }
 
+
     interface onOptionSelected{
         fun onOptionSelected(option:MainActivity.Options){}
     }

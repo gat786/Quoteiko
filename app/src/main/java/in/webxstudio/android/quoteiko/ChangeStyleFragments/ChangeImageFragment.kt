@@ -1,65 +1,89 @@
 package `in`.webxstudio.android.quoteiko.ChangeStyleFragments
 
 import `in`.webxstudio.android.quoteiko.R
+import `in`.webxstudio.android.quoteiko.SELECTED_IMAGE
+import android.content.Context
+import android.media.Image
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.cardview.widget.CardView
+import kotlinx.android.synthetic.main.fragment_change_image.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ChangeImageFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ChangeImageFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    lateinit var fragmentView:View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
+
+    private lateinit var imageList : List<ImageView>
+
+    private var currentImageID :Int? = null
+    val TAG = "ChangeImageFragment"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_change_image, container, false)
+        fragmentView = inflater.inflate(R.layout.fragment_change_image, container, false)
+        return fragmentView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setTags()
+        currentImageID = arguments?.getInt(SELECTED_IMAGE)
+        imageList = listOf<ImageView>(
+            adrien_olichon,
+            haydn_golden,
+            huyen_nguyen,
+            jeremy_weber,
+            jonathan_daniels,
+            jordan_whitt,
+            joshua_chun,
+            matthew_pablico,
+            pablo_heimplatz,
+            s_b_vonlanthen,
+            will_suddreth
+        )
+        markCurrentSelectedImage(currentImageID)
+    }
+
+    fun markCurrentSelectedImage(selectedImageResourceID:Int?){
+        for (image in imageList){
+            if(image.tag == selectedImageResourceID){
+                val cardView = image.parent as CardView
+                layoutInflater.inflate(R.layout.selected_image,cardView)
+            }
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        currentImageID = arguments?.getInt(SELECTED_IMAGE)
+        super.onAttach(context)
     }
 
     interface onImageChanged{
-        fun onImageChanged(imagePath:String){}
+        fun onImageChanged(resourceInt:Int){}
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ChangeImageFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ChangeImageFragment()
-                .apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    fun setTags(){
+        adrien_olichon.tag = R.drawable.adrien_olichon
+        haydn_golden.tag = R.drawable.haydn_golden
+        huyen_nguyen.tag = R.drawable.huyen_nguyen
+        jeremy_weber.tag = R.drawable.jeremy_weber
+        jonathan_daniels.tag = R.drawable.jonathan_daniels
+        jordan_whitt.tag = R.drawable.jordan_whitt
+        joshua_chun.tag = R.drawable.joshua_chun
+        matthew_pablico.tag = R.drawable.matthew_pablico
+        pablo_heimplatz.tag = R.drawable.pablo_heimplatz
+        s_b_vonlanthen.tag = R.drawable.s_b_vonlanthen
+        will_suddreth.tag = R.drawable.will_suddreth
     }
 }

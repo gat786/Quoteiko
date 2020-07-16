@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
-import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(),
@@ -22,18 +21,11 @@ class MainActivity : AppCompatActivity(),
 
     private val TAG = "MainActivity"
     private val manager = supportFragmentManager
-    private val optionsHolderFragment = OptionsHolderFragment()
-    private val changeQuoteFragment =
-        ChangeQuoteFragment()
-    private val changeFontStyleFragment =
-        ChangeFontStyleFragment()
-    private val changeImageFragment =
-        ChangeImageFragment()
+    private val currentImageResourceID : Int = R.drawable.jeremy_weber
 
     private lateinit var defaultImageBitmap : Bitmap
     private lateinit var defaultQuoteString :String
     private lateinit var defaultAuthorName :String
-
 
     lateinit var props :ImageProps
 
@@ -59,10 +51,13 @@ class MainActivity : AppCompatActivity(),
         Log.d(TAG,"One option selected")
         when (option) {
             Options.CHANGE_IMAGE -> {
-                showChangeImageFragment()
+                val bundle = Bundle()
+                bundle.putInt(SELECTED_IMAGE,currentImageResourceID)
+                showChangeImageFragment(bundle)
             }
             Options.CHANGE_QUOTE -> {
                 showChangeQuoteFragment()
+
             }
             Options.CHANGE_STYLE -> {
                 showChangeFontStyleFragment()
@@ -110,11 +105,11 @@ class MainActivity : AppCompatActivity(),
         super.onFontStyleChanged(fontFormat, fontDirection, fontColor)
     }
 
-    override fun onImageChanged(imagePath: String) {
+    override fun onImageChanged(resourceInt: Int) {
         //sample_image_quote.QuoteViewImage.setImageBitmap()
         println("Method overridden successfully")
 
-        super.onImageChanged(imagePath)
+        super.onImageChanged(resourceInt)
     }
 
     override fun onBackPressed() {
@@ -130,7 +125,7 @@ class MainActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        defaultImageBitmap = BitmapFactory.decodeResource(resources,R.drawable.jeremy_weber)
+        defaultImageBitmap = BitmapFactory.decodeResource(resources,currentImageResourceID)
         defaultQuoteString =  resources.getString(R.string.quotes_string)
         defaultAuthorName = resources.getString(R.string.default_quotes_author)
 
@@ -147,6 +142,7 @@ class MainActivity : AppCompatActivity(),
 
     fun showChangeOptionsFragment(){
         val transactionManager = manager.beginTransaction()
+        val optionsHolderFragment = OptionsHolderFragment()
         transactionManager.replace(R.id.root_fragment_holder,optionsHolderFragment)
             .addToBackStack(OPTIONS_FRAGMENT)
         transactionManager.commit()
@@ -154,6 +150,7 @@ class MainActivity : AppCompatActivity(),
 
     fun showChangeQuoteFragment(){
         val transactionManager = manager.beginTransaction()
+        val changeQuoteFragment = ChangeQuoteFragment()
         transactionManager.replace(R.id.root_fragment_holder,changeQuoteFragment)
             .addToBackStack(CHANGE_QUOTE_FRAGMENT)
         transactionManager.commit()
@@ -161,13 +158,18 @@ class MainActivity : AppCompatActivity(),
 
     fun showChangeFontStyleFragment(){
         val transactionManager = manager.beginTransaction()
+        val changeFontStyleFragment = ChangeFontStyleFragment()
         transactionManager.replace(R.id.root_fragment_holder,changeFontStyleFragment)
             .addToBackStack(CHANGE_FONT_STYLE_FRAGMENT)
         transactionManager.commit()
     }
 
-    fun showChangeImageFragment(){
+    fun showChangeImageFragment(bundle: Bundle? = null){
         val transactionManager = manager.beginTransaction()
+        val changeImageFragment = ChangeImageFragment()
+        if(bundle!=null){
+            changeImageFragment.arguments = bundle
+        }
         transactionManager.replace(R.id.root_fragment_holder,changeImageFragment)
             .addToBackStack(CHANGE_IMAGE_FRAGMENT)
         transactionManager.commit()
