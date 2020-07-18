@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity(),
         when (option) {
             Options.CHANGE_IMAGE -> {
                 val bundle = Bundle()
-                bundle.putInt(SELECTED_IMAGE,currentImageResourceID)
+                bundle.putInt(CURRENTLY_PREVIEWING,currentImageResourceID)
                 showChangeImageFragment(bundle)
             }
             Options.CHANGE_QUOTE -> {
@@ -107,7 +107,9 @@ class MainActivity : AppCompatActivity(),
 
     override fun onImageChanged(resourceInt: Int) {
         //sample_image_quote.QuoteViewImage.setImageBitmap()
-        println("Method overridden successfully")
+        Log.d(TAG,"Changing image")
+
+
 
         super.onImageChanged(resourceInt)
     }

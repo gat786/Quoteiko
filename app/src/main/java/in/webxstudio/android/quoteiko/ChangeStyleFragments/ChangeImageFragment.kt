@@ -1,9 +1,10 @@
 package `in`.webxstudio.android.quoteiko.ChangeStyleFragments
 
+import `in`.webxstudio.android.quoteiko.CURRENTLY_SELECTED_IMAGE
+import `in`.webxstudio.android.quoteiko.IMAGE_DESELECTED
 import `in`.webxstudio.android.quoteiko.R
-import `in`.webxstudio.android.quoteiko.SELECTED_IMAGE
+import `in`.webxstudio.android.quoteiko.CURRENTLY_PREVIEWING
 import android.content.Context
-import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
+import androidx.core.view.children
 import kotlinx.android.synthetic.main.fragment_change_image.*
 
 class ChangeImageFragment : Fragment() {
@@ -23,6 +25,7 @@ class ChangeImageFragment : Fragment() {
     }
 
     private lateinit var imageList : List<ImageView>
+    private lateinit var selectedCardView: CardView
 
     private var currentImageID :Int? = null
     val TAG = "ChangeImageFragment"
@@ -33,12 +36,15 @@ class ChangeImageFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         fragmentView = inflater.inflate(R.layout.fragment_change_image, container, false)
+
+
+
         return fragmentView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setTags()
-        currentImageID = arguments?.getInt(SELECTED_IMAGE)
+        currentImageID = arguments?.getInt(CURRENTLY_PREVIEWING)
         imageList = listOf<ImageView>(
             adrien_olichon,
             haydn_golden,
@@ -52,20 +58,49 @@ class ChangeImageFragment : Fragment() {
             s_b_vonlanthen,
             will_suddreth
         )
+
+        for(childIndex in 0 until list_of_cards.childCount){
+            list_of_cards.getChildAt(childIndex).setOnClickListener(onCardSelected)
+            list_of_cards.getChildAt(childIndex).tag = IMAGE_DESELECTED
+        }
+
         markCurrentSelectedImage(currentImageID)
+
     }
 
     fun markCurrentSelectedImage(selectedImageResourceID:Int?){
         for (image in imageList){
             if(image.tag == selectedImageResourceID){
-                val cardView = image.parent as CardView
-                layoutInflater.inflate(R.layout.selected_image,cardView)
+                Log.d(TAG,"YAY 🙌🏼 we found the match!")
+                selectedCardView = image.parent as CardView
+
+                selectedCardView.tag = CURRENTLY_PREVIEWING
+
+                layoutInflater.inflate(R.layout.preselected_image,selectedCardView)
             }
         }
     }
 
+    val onCardSelected = View.OnClickListener{
+        // whenever a card is clicked this is called
+        if (it?.tag == CURRENTLY_PREVIEWING){
+            // if the card which was clicked is preselected
+
+        }
+        else{
+            // a new imageCard was selected time to update app-state
+            highlightCard(it as CardView)
+        }
+    }
+
+    fun highlightCard(viewToHighlight:CardView){
+        list_of_cards.children.forEach {
+
+        }
+    }
+
     override fun onAttach(context: Context) {
-        currentImageID = arguments?.getInt(SELECTED_IMAGE)
+        currentImageID = arguments?.getInt(CURRENTLY_PREVIEWING)
         super.onAttach(context)
     }
 
@@ -73,7 +108,12 @@ class ChangeImageFragment : Fragment() {
         fun onImageChanged(resourceInt:Int){}
     }
 
+
     fun setTags(){
+        /*
+            This adds tags to every image view so that we can recognize it later
+            as we are recognizing based on the resource id's
+         */
         adrien_olichon.tag = R.drawable.adrien_olichon
         haydn_golden.tag = R.drawable.haydn_golden
         huyen_nguyen.tag = R.drawable.huyen_nguyen
