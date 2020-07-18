@@ -1,10 +1,8 @@
 package `in`.webxstudio.android.quoteiko.ChangeStyleFragments
 
-import `in`.webxstudio.android.quoteiko.CURRENTLY_SELECTED_IMAGE
-import `in`.webxstudio.android.quoteiko.IMAGE_DESELECTED
-import `in`.webxstudio.android.quoteiko.R
-import `in`.webxstudio.android.quoteiko.CURRENTLY_PREVIEWING
+import `in`.webxstudio.android.quoteiko.*
 import android.content.Context
+import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -61,29 +59,28 @@ class ChangeImageFragment : Fragment() {
 
         for(childIndex in 0 until list_of_cards.childCount){
             list_of_cards.getChildAt(childIndex).setOnClickListener(onCardSelected)
-            list_of_cards.getChildAt(childIndex).tag = IMAGE_DESELECTED
+            list_of_cards.getChildAt(childIndex).setTag(ImageCardState.UNSELECTED)
         }
 
         markCurrentSelectedImage(currentImageID)
-
     }
 
-    fun markCurrentSelectedImage(selectedImageResourceID:Int?){
+    fun markCurrentSelectedImage(selectedImageResourceID:Int?,currentState: ImageCardState = ImageCardState.PREVIEWING){
         for (image in imageList){
             if(image.tag == selectedImageResourceID){
                 Log.d(TAG,"YAY 🙌🏼 we found the match!")
                 selectedCardView = image.parent as CardView
-
-                selectedCardView.tag = CURRENTLY_PREVIEWING
-
+                selectedCardView.setTag(ImageCardState.PREVIEWING)
+                Log.d(TAG,"Current tag is ${selectedCardView.tag}")
                 layoutInflater.inflate(R.layout.preselected_image,selectedCardView)
             }
         }
     }
 
     val onCardSelected = View.OnClickListener{
+        Log.d(TAG,"Current Tag is ${it.tag}")
         // whenever a card is clicked this is called
-        if (it?.tag == CURRENTLY_PREVIEWING){
+        if (it.tag == ImageCardState.PREVIEWING){
             // if the card which was clicked is preselected
 
         }
@@ -95,7 +92,30 @@ class ChangeImageFragment : Fragment() {
 
     fun highlightCard(viewToHighlight:CardView){
         list_of_cards.children.forEach {
-
+            when(it as CardView){
+                viewToHighlight ->{
+                    // do the steps to highlight the card
+                    if (it.tag.equals(ImageCardState.SELECTED)){
+                        Log.d(TAG,"This card is currently selected nothing to do here")
+                    }else{
+                        Log.d(TAG,"Selecting a new Image")
+                        it.setTag(ImageCardState.SELECTED)
+                        it.elevation = 8f
+                        layoutInflater.inflate(R.layout.currently_selected_image,it)
+                    }
+                }
+                else->{
+                    if (it.tag==ImageCardState.PREVIEWING){
+                        Log.d(TAG,"Card is previewing no need to change it")
+                    }else{
+                        it.setTag(ImageCardState.UNSELECTED)
+                        it.cardElevation = 1f
+                        if(it.childCount > 1){
+                            it.removeViewAt(1)
+                        }
+                    }
+                }
+            }
         }
     }
 
