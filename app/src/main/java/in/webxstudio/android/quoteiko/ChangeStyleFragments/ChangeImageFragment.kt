@@ -26,7 +26,7 @@ class ChangeImageFragment : Fragment() {
     private lateinit var selectedCardView: CardView
 
     private var currentImageID :Int? = null
-    val TAG = "ChangeImageFragment"
+    private val TAG = "ChangeImageFragment"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,7 +74,7 @@ class ChangeImageFragment : Fragment() {
         markCurrentSelectedImage(currentImageID)
     }
 
-    fun markCurrentSelectedImage(selectedImageResourceID:Int?,currentState: ImageCardState = ImageCardState.PREVIEWING){
+    private fun markCurrentSelectedImage(selectedImageResourceID:Int?,currentState: ImageCardState = ImageCardState.PREVIEWING){
         for (image in imageViewList){
             if(image.getTag(R.string.resource_id) == selectedImageResourceID){
                 Log.d(TAG,"YAY 🙌🏼 we found the match!")
@@ -85,7 +85,7 @@ class ChangeImageFragment : Fragment() {
         }
     }
 
-    val onCardSelected = View.OnClickListener{
+    private val onCardSelected = View.OnClickListener{
         Log.d(TAG,"Current Tag is ${it.tag}")
         // whenever a card is clicked this is called
         if (it.getTag(R.string.card_state) == ImageCardState.PREVIEWING){
@@ -98,7 +98,7 @@ class ChangeImageFragment : Fragment() {
         }
     }
 
-    fun highlightCard(viewToHighlight:CardView){
+    private fun highlightCard(viewToHighlight:CardView){
         list_of_cards.children.forEach {
             when(it as CardView){
                 viewToHighlight ->{
@@ -132,22 +132,25 @@ class ChangeImageFragment : Fragment() {
         super.onAttach(context)
     }
 
-    interface onImageChanged{
+    interface OnImageChanged{
         fun onImageChanged(resourceInt:Int){}
     }
 
 
-    fun setTagsAndListener(){
+    private fun setTagsAndListener(){
         /*
             This adds tags to every image view so that we can recognize it later
             as we are recognizing based on the resource id's
          */
 
         for (imageView in imageViewList.withIndex()){
-            // on using BitmapFactory it uses almost 10 times the memory and
-            // causes the app to lag use resource updates to make it lightweight
-            //imageView.value.setImageBitmap(BitmapFactory.decodeResource(
-            // resources,imageResourceList[imageView.index]))
+            /* 
+            on using BitmapFactory it uses almost 10 times the memory and
+            causes the app to lag use resource updates to make it lightweight
+            
+            imageView.value.setImageBitmap(BitmapFactory.decodeResource(
+            resources,imageResourceList[imageView.index]))
+            */
             imageView.value.setImageResource(imageResourceList[imageView.index])
 
             imageView.value.setTag(R.string.resource_id,

@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(),
         ChangeQuoteFragment.onQuoteDetailsFilled,
         ChangeFontStyleFragment.onFontStyleChanged,
-        ChangeImageFragment.onImageChanged,
+        ChangeImageFragment.OnImageChanged,
         OptionsHolderFragment.onOptionSelected
 {
 
