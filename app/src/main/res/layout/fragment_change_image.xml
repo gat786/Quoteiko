@@ -32,7 +32,7 @@
                     android:id="@+id/haydn_golden"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/haydn_golden" />
+                    />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -46,7 +46,7 @@
                     android:id="@+id/huyen_nguyen"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/huyen_nguyen" />
+                    />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -60,7 +60,7 @@
                     android:id="@+id/jeremy_weber"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/jeremy_weber" />
+                    />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -74,7 +74,7 @@
                     android:id="@+id/jonathan_daniels"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/jonathan_daniels" />
+                    />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -88,7 +88,7 @@
                     android:id="@+id/jordan_whitt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/jordan_whitt" />
+                    />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -102,7 +102,7 @@
                     android:id="@+id/adrien_olichon"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/adrien_olichon" />
+                    />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -116,7 +116,7 @@
                     android:id="@+id/joshua_chun"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/joshua_chun" />
+                    />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -130,7 +130,7 @@
                     android:id="@+id/matthew_pablico"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/matthew_pablico" />
+                    />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -144,7 +144,7 @@
                     android:id="@+id/pablo_heimplatz"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/pablo_heimplatz" />
+                    />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -158,7 +158,7 @@
                     android:id="@+id/s_b_vonlanthen"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/s_b_vonlanthen" />
+                    />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -172,7 +172,7 @@
                     android:id="@+id/will_suddreth"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/will_suddreth" />
+                    />
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
