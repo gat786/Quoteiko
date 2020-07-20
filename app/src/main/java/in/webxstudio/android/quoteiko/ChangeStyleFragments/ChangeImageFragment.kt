@@ -25,23 +25,28 @@ class ChangeImageFragment : Fragment() {
     private lateinit var imageResourceList: List<Int>
     private lateinit var selectedCardView: CardView
 
-    private var currentImageID :Int? = null
+    private var currentlyPreviewingImage :Int? = null
+    private var currentlySelectedImage: Int? = null
     private val TAG = "ChangeImageFragment"
 
+    private var onImageChangedListener : OnImageChangedListener? = null
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        fragmentView = inflater.inflate(R.layout.fragment_change_image, container, false)
-
-
-
+        fragmentView = inflater.inflate(R.layout.fragment_change_image,
+            container,
+            false
+        )
         return fragmentView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        currentImageID = arguments?.getInt(CURRENTLY_PREVIEWING)
+        currentlyPreviewingImage = arguments?.getInt(CURRENTLY_PREVIEWING)
+        currentlySelectedImage = currentlyPreviewingImage
         imageViewList = listOf<ImageView>(
             adrien_olichon,
             haydn_golden,
@@ -71,16 +76,35 @@ class ChangeImageFragment : Fragment() {
         )
 
         setTagsAndListener()
-        markCurrentSelectedImage(currentImageID)
+
+        submit_image_button.setOnClickListener {
+            Log.d(TAG,"Submit button clicked $currentlySelectedImage")
+            currentlySelectedImage?.let {
+                    it1 -> onImageChangedListener?.onImageChanged(it1)
+            }
+        }
+
+        markCurrentlyPreviewingImage(currentlyPreviewingImage)
     }
 
-    private fun markCurrentSelectedImage(selectedImageResourceID:Int?,currentState: ImageCardState = ImageCardState.PREVIEWING){
+    private fun markCurrentlyPreviewingImage(selectedImageResourceID:Int?){
         for (image in imageViewList){
-            if(image.getTag(R.string.resource_id) == selectedImageResourceID){
+
+            if((image.parent as CardView).getTag(R.string.resource_id)
+                == selectedImageResourceID
+            ){
                 Log.d(TAG,"YAY 🙌🏼 we found the match!")
                 selectedCardView = image.parent as CardView
-                selectedCardView.setTag(R.string.card_state,ImageCardState.PREVIEWING)
-                layoutInflater.inflate(R.layout.preselected_image,selectedCardView)
+
+                selectedCardView.setTag(
+                    R.string.card_state,
+                    ImageCardState.PREVIEWING
+                )
+
+                layoutInflater.inflate(
+                    R.layout.preselected_image,
+                    selectedCardView
+                )
             }
         }
     }
@@ -103,13 +127,26 @@ class ChangeImageFragment : Fragment() {
             when(it as CardView){
                 viewToHighlight ->{
                     // do the steps to highlight the card
-                    if (it.getTag(R.string.card_state) == ImageCardState.SELECTED){
-                        Log.d(TAG,"This card is currently selected nothing to do here")
+                    if (
+                        it.getTag(R.string.card_state) ==
+                        ImageCardState.SELECTED
+                    ){
+                        Log.d(TAG,"This card is currently selected nothing " +
+                                "to do here")
                     }else{
                         Log.d(TAG,"Selecting a new Image")
                         it.setTag(R.string.card_state,ImageCardState.SELECTED)
                         it.elevation = 8f
-                        layoutInflater.inflate(R.layout.currently_selected_image,it)
+
+                        println("resource id is ${it.getTag(R.string.resource_id)} and ${it.getTag(R.string.card_state)}")
+                        currentlySelectedImage = it.getTag(
+                            R.string.resource_id
+                        ).toString().toInt()
+
+                        layoutInflater.inflate(
+                            R.layout.currently_selected_image,
+                            it
+                        )
                     }
                 }
                 else->{
@@ -128,11 +165,19 @@ class ChangeImageFragment : Fragment() {
     }
 
     override fun onAttach(context: Context) {
-        currentImageID = arguments?.getInt(CURRENTLY_PREVIEWING)
+        currentlyPreviewingImage = arguments?.getInt(CURRENTLY_PREVIEWING)
+        currentlySelectedImage = currentlyPreviewingImage
+
+        // initialize listener
+        onImageChangedListener = context as? OnImageChangedListener
+        // throw error if not implemented correctly
+        if (onImageChangedListener == null){
+            throw ClassCastException("$context must implement OnImageChangedListener")
+        }
         super.onAttach(context)
     }
 
-    interface OnImageChanged{
+    interface OnImageChangedListener{
         fun onImageChanged(resourceInt:Int){}
     }
 
@@ -153,11 +198,13 @@ class ChangeImageFragment : Fragment() {
             */
             imageView.value.setImageResource(imageResourceList[imageView.index])
 
-            imageView.value.setTag(R.string.resource_id,
+            (imageView.value.parent as CardView)
+                .setTag(R.string.resource_id,
                 imageResourceList[imageView.index]
             )
 
-            imageView.value.setTag(R.string.card_state,
+            (imageView.value.parent as CardView)
+                .setTag(R.string.card_state,
                 ImageCardState.UNSELECTED
             )
 

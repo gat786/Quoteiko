@@ -15,8 +15,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(),
         ChangeQuoteFragment.onQuoteDetailsFilled,
         ChangeFontStyleFragment.onFontStyleChanged,
-        ChangeImageFragment.OnImageChanged,
-        OptionsHolderFragment.onOptionSelected
+        ChangeImageFragment.OnImageChangedListener,
+        OptionsHolderFragment.OptionSelectedListener
 {
 
     private val TAG = "MainActivity"
@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity(),
         //sample_image_quote.QuoteViewImage.setImageBitmap()
         Log.d(TAG,"Changing image")
 
-
+        QuoteViewImage.setImageResource(resourceInt)
 
         super.onImageChanged(resourceInt)
     }
@@ -118,8 +118,8 @@ class MainActivity : AppCompatActivity(),
         manager.popBackStack()
     }
 
-    override fun onQuoteDetailsReceived(quoteString: String, quoteAuthorName: String) {
-
+    override fun onQuoteDetailsReceived(quoteString: String,
+                                        quoteAuthorName: String){
         super.onQuoteDetailsReceived(quoteString, quoteAuthorName)
     }
 
@@ -142,37 +142,55 @@ class MainActivity : AppCompatActivity(),
         setImageProperties(props)
     }
 
-    fun showChangeOptionsFragment(){
+    private fun showChangeOptionsFragment(){
+
         val transactionManager = manager.beginTransaction()
         val optionsHolderFragment = OptionsHolderFragment()
-        transactionManager.replace(R.id.root_fragment_holder,optionsHolderFragment)
-            .addToBackStack(OPTIONS_FRAGMENT)
+
+        transactionManager.replace(
+            R.id.root_fragment_holder,
+            optionsHolderFragment
+        ).addToBackStack(OPTIONS_FRAGMENT)
+
         transactionManager.commit()
     }
 
-    fun showChangeQuoteFragment(){
+    private fun showChangeQuoteFragment(){
+
         val transactionManager = manager.beginTransaction()
         val changeQuoteFragment = ChangeQuoteFragment()
-        transactionManager.replace(R.id.root_fragment_holder,changeQuoteFragment)
-            .addToBackStack(CHANGE_QUOTE_FRAGMENT)
+
+        transactionManager.replace(
+            R.id.root_fragment_holder,
+            changeQuoteFragment
+        ).addToBackStack(CHANGE_QUOTE_FRAGMENT)
+
         transactionManager.commit()
     }
 
-    fun showChangeFontStyleFragment(){
+    private fun showChangeFontStyleFragment(){
+
         val transactionManager = manager.beginTransaction()
         val changeFontStyleFragment = ChangeFontStyleFragment()
-        transactionManager.replace(R.id.root_fragment_holder,changeFontStyleFragment)
-            .addToBackStack(CHANGE_FONT_STYLE_FRAGMENT)
+
+        transactionManager.replace(
+            R.id.root_fragment_holder,
+            changeFontStyleFragment
+        ).addToBackStack(CHANGE_FONT_STYLE_FRAGMENT)
+
         transactionManager.commit()
     }
 
-    fun showChangeImageFragment(bundle: Bundle? = null){
+    private fun showChangeImageFragment(bundle: Bundle? = null){
         val transactionManager = manager.beginTransaction()
         val changeImageFragment = ChangeImageFragment()
         if(bundle!=null){
             changeImageFragment.arguments = bundle
         }
-        transactionManager.replace(R.id.root_fragment_holder,changeImageFragment)
+        transactionManager.replace(
+            R.id.root_fragment_holder,
+            changeImageFragment
+        )
             .addToBackStack(CHANGE_IMAGE_FRAGMENT)
         transactionManager.commit()
 

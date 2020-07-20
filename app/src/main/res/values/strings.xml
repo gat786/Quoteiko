@@ -9,8 +9,8 @@
     <string name="change_quote">Change Quote</string>
     <string name="change_fontstyle">Change FontStyle</string>
     <string name="change_image">Change Image</string>
-    <string name="done">Done</string>
     <string name="selected">SELECTED</string>
+    <string name="done">Done</string>
 
 
 </resources>
