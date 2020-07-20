@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity(),
 
     private val TAG = "MainActivity"
     private val manager = supportFragmentManager
-    private val currentImageResourceID : Int = R.drawable.jeremy_weber
+    private var currentImageResourceID : Int = R.drawable.jeremy_weber
 
     private lateinit var defaultImageBitmap : Bitmap
     private lateinit var defaultQuoteString :String
@@ -109,7 +109,12 @@ class MainActivity : AppCompatActivity(),
         //sample_image_quote.QuoteViewImage.setImageBitmap()
         Log.d(TAG,"Changing image")
 
+        val bitmap = BitmapFactory.decodeResource(resources,resourceInt)
+        props.imageBitmap = bitmap
+        setImageProperties(props)
+        currentImageResourceID = resourceInt
         QuoteViewImage.setImageResource(resourceInt)
+        manager.popBackStack()
 
         super.onImageChanged(resourceInt)
     }
