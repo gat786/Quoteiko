@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
+import android.view.View
+import android.widget.RelativeLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(),
@@ -93,7 +95,6 @@ class MainActivity : AppCompatActivity(),
                 quote_field.setTypeface(quote_field.typeface,Typeface.BOLD)
             }
         }
-
     }
 
     override fun onFontStyleChanged(
@@ -120,7 +121,9 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onBackPressed() {
-        manager.popBackStack()
+        if(manager.backStackEntryCount > 1) {
+            manager.popBackStack()
+        }
     }
 
     override fun onQuoteDetailsReceived(quoteString: String,
@@ -143,8 +146,10 @@ class MainActivity : AppCompatActivity(),
             textStyle = TextStyle.ITALIC
         )
 
-        showChangeOptionsFragment()
+
         setImageProperties(props)
+
+        showChangeOptionsFragment()
     }
 
     private fun showChangeOptionsFragment(){
@@ -198,7 +203,5 @@ class MainActivity : AppCompatActivity(),
         )
             .addToBackStack(CHANGE_IMAGE_FRAGMENT)
         transactionManager.commit()
-
     }
-
 }
