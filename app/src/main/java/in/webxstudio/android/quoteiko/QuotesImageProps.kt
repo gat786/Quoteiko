@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 
 
-val defaultSize: Int = 48
+val defaultSize: Int = 16
 val defaultColor = Color.WHITE
 val defaultTextAlignment = MainActivity.Alignments.LEFT
 val defaultTextStyle = MainActivity.TextStyle.NORMAL
