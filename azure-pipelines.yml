@@ -29,6 +29,6 @@ steps:
     tasks: 'assembleRelease'
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+    PathtoPublish: '$(build.artifactStagingDirectory)' 
     ArtifactName: 'Build Files'
     publishLocation: Container
