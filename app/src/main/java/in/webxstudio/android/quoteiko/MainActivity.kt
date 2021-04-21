@@ -6,12 +6,12 @@ import `in`.webxstudio.android.quoteiko.ChangeStyleFragments.ChangeQuoteFragment
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Typeface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
+import android.view.MotionEvent
 import android.view.View
-import android.widget.RelativeLayout
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(),
@@ -50,11 +50,11 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onOptionSelected(option: Options) {
-        Log.d(TAG,"One option selected")
+        Log.d(TAG, "One option selected")
         when (option) {
             Options.CHANGE_IMAGE -> {
                 val bundle = Bundle()
-                bundle.putInt(CURRENTLY_PREVIEWING,currentImageResourceID)
+                bundle.putInt(CURRENTLY_PREVIEWING, currentImageResourceID)
                 showChangeImageFragment(bundle)
             }
             Options.CHANGE_QUOTE -> {
@@ -74,10 +74,10 @@ class MainActivity : AppCompatActivity(),
         quote_field.textSize = props.textSize.toFloat()
         quote_field.setTextColor(props.textColor)
         when(props.textAlignment){
-            Alignments.LEFT ->{
+            Alignments.LEFT -> {
                 quote_field.gravity = Gravity.START
             }
-            Alignments.CENTER ->{
+            Alignments.CENTER -> {
                 quote_field.gravity = Gravity.CENTER
             }
             Alignments.RIGHT -> {
@@ -85,14 +85,14 @@ class MainActivity : AppCompatActivity(),
             }
         }
         when(props.textStyle){
-            TextStyle.NORMAL->{
-                quote_field.setTypeface(quote_field.typeface,Typeface.NORMAL)
+            TextStyle.NORMAL -> {
+                quote_field.setTypeface(quote_field.typeface, Typeface.NORMAL)
             }
-            TextStyle.ITALIC->{
-                quote_field.setTypeface(quote_field.typeface,Typeface.ITALIC)
+            TextStyle.ITALIC -> {
+                quote_field.setTypeface(quote_field.typeface, Typeface.ITALIC)
             }
-            TextStyle.BOLD ->{
-                quote_field.setTypeface(quote_field.typeface,Typeface.BOLD)
+            TextStyle.BOLD -> {
+                quote_field.setTypeface(quote_field.typeface, Typeface.BOLD)
             }
         }
     }
@@ -108,9 +108,9 @@ class MainActivity : AppCompatActivity(),
 
     override fun onImageChanged(resourceInt: Int) {
         //sample_image_quote.QuoteViewImage.setImageBitmap()
-        Log.d(TAG,"Changing image")
+        Log.d(TAG, "Changing image")
 
-        val bitmap = BitmapFactory.decodeResource(resources,resourceInt)
+        val bitmap = BitmapFactory.decodeResource(resources, resourceInt)
         props.imageBitmap = bitmap
         setImageProperties(props)
         currentImageResourceID = resourceInt
@@ -126,8 +126,10 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
-    override fun onQuoteDetailsReceived(quoteString: String,
-                                        quoteAuthorName: String){
+    override fun onQuoteDetailsReceived(
+        quoteString: String,
+        quoteAuthorName: String
+    ){
         super.onQuoteDetailsReceived(quoteString, quoteAuthorName)
     }
 
@@ -135,7 +137,7 @@ class MainActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        defaultImageBitmap = BitmapFactory.decodeResource(resources,currentImageResourceID)
+        defaultImageBitmap = BitmapFactory.decodeResource(resources, currentImageResourceID)
         defaultQuoteString =  resources.getString(R.string.quotes_string)
         defaultAuthorName = resources.getString(R.string.default_quotes_author)
 
@@ -150,6 +152,37 @@ class MainActivity : AppCompatActivity(),
         setImageProperties(props)
 
         showChangeOptionsFragment()
+
+        quote_field.setOnTouchListener(this::onTouch)
+    }
+    var dX = 0f
+    var dY:kotlin.Float = 0f
+
+    fun onTouch(v: View, event: MotionEvent) : Boolean{
+        when(event.action){
+            MotionEvent.ACTION_DOWN -> {
+                dX = v.getX() - event.getRawX();
+                dY = v.getY() - event.getRawY();
+            }
+            MotionEvent.ACTION_MOVE -> {
+                v.animate()
+                    .x(event.getRawX() + dX)
+                    .y(event.getRawY() + dY)
+                    .setDuration(0)
+                    .start();
+            }
+            MotionEvent.ACTION_UP -> {
+                v.animate()
+                    .x(event.getRawX() + dX)
+                    .y(event.getRawY() + dY)
+                    .setDuration(0)
+                    .start();
+            }
+            else -> {
+                return false
+            }
+        }
+        return true
     }
 
     private fun showChangeOptionsFragment(){
